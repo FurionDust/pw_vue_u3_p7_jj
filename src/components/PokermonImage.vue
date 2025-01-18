@@ -25,7 +25,7 @@ export default {
         this.pokemonId +
         ".svg"
       );*/
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.pokemonId}.svg`;
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${this.pokemonId}.gif`;
     },
   },
 };
@@ -40,7 +40,7 @@ img {
   width: 200px;
   height: 200px;
   position: absolute;
-  right: 35%;
+  right: 40%;
 }
 .pokemon-container {
   height: 200px;
