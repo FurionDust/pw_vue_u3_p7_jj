@@ -2,7 +2,7 @@
   <div class="pokemon-container">
     <img v-show="!showPokemon" :src="imagenFuente" alt="No se pudo cargar" class="ocultar" />
 
-    <img v-show="showPokemon" :src="imagenFuente" alt="No se pudo cargar" />
+    <img v-show="showPokemon" :src="imagenFuente2" alt="No se pudo cargar" />
   </div>
 </template>
 
@@ -30,8 +30,11 @@ export default {
         this.pokemonId +
         ".svg"
       );*/
-      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${this.pokemonId}.gif`;
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.pokemonId}.svg`;
     },
+     imagenFuente2() {
+return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${this.pokemonId}.gif`;
+     }
   },
   methods:{
     metodoPrueba(){
@@ -50,7 +53,7 @@ img {
   width: 200px;
   height: 200px;
   position: absolute;
-  right: 40%;
+  right: 42%;
 }
 .pokemon-container {
   height: 200px;
