@@ -1,13 +1,18 @@
 <template>
   <div class="pokemon-container">
-    <img v-show="showPokemon" :src="imagenFuente" alt="No se pudo cargar" class="ocultar" />
+    <img v-show="!showPokemon" :src="imagenFuente" alt="No se pudo cargar" class="ocultar" />
 
-    <img v-show="!showPokemon" :src="imagenFuente" alt="No se pudo cargar" />
+    <img v-show="showPokemon" :src="imagenFuente" alt="No se pudo cargar" />
   </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      propiedadPrueba:'Este texto es de prueba'
+    }
+  },
   props: {
     pokemonId: {
       type: Number,
@@ -28,6 +33,11 @@ export default {
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${this.pokemonId}.gif`;
     },
   },
+  methods:{
+    metodoPrueba(){
+      console.log("Metodo ejecutado desde el padre");
+    }
+  }
 };
 </script>
 

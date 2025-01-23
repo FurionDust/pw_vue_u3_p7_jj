@@ -1,8 +1,12 @@
 <template>
   <div class="options-container">
     <ul>
-      <li @click="seleccionado" v-for="pokemon in pokemons" :key="pokemon.id">
-        {{pokemon.nombre}}
+      <li
+        @click="seleccionado(pokemon.id)"
+        v-for="pokemon in pokemons"
+        :key="pokemon.id"
+      >
+        {{ pokemon.nombre }}
       </li>
     </ul>
   </div>
@@ -10,17 +14,30 @@
 
 <script>
 export default {
-  props: {
-    pokemons:{
-      type:Array,
-      required:true
+  data(){
+    return{
+      corr:false,
     }
   },
-  methods:{
-    seleccionado(){
-      console.log("Hizo Click")
-    }
-  }
+  props: {
+    pokemons: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    seleccionado(id) {
+      console.log("Hizo Click");
+      console.log(id);
+      const objetoEnviado = {
+        identificador:id,
+        valor2:true,
+        valor3:"Ejemplo2"
+      };
+
+      this.$emit("seleccion", objetoEnviado);
+    },
+  },
 };
 </script>
 
