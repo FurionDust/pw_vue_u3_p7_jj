@@ -1,6 +1,7 @@
 <template>
-  
+<div>
   <FormularioComponente />
+</div>
 </template>
 
 <script>
@@ -10,9 +11,6 @@ export default {
   name: 'App',
   components: {
     FormularioComponente
-  },
-  mounted:{
-
   }
 }
 </script>
