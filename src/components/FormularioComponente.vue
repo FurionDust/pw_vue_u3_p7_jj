@@ -1,30 +1,62 @@
 <template>
   <div class="container">
-    
     <div class="formu">
       <h1>Formulario Persona</h1>
-      <form>
+
+        <p type="Id">
+          <input type="text" id="id" name="id" v-model="id" />
+        </p>
         <p type="Nombre">
-          <input type="text" id="nombre" name="nombre" :value="nombre " />
+          <input type="text" id="nombre" name="nombre" v-model="nombre" />
         </p>
         <p type="Apellido">
-          <input type="text" id="apellido" name="apellido" :value="apellido" />
+          <input type="text" id="apellido" name="apellido" v-model="apellido" />
         </p>
         <p type="Fecha de Nacimiento ">
           <input
             type="text"
-            id="fechaNacimiento"
+            id="fechaNacimiento"  
             name="fechaNacimiento"
-            :value="fechaNacimiento"
+            v-model="fechaNacimiento"
           />
         </p>
-      </form>
+      <button @click="buscar()">Consultar</button>
+      <button @click="guardar()">Guardar</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { insertarFachada, obtenerPorIdFachada } from "@/client/PersonaClient";
+export default {
+  data() {
+    return {
+      id: 0,
+      nombre: "",
+      apellido: "",
+      fechaNacimiento: "",
+    };
+  },
+  mounted() {
+    obtenerPorIdFachada(6);
+  },
+  methods:{
+    async buscar(){
+      const data = await obtenerPorIdFachada(this.id);
+      this.nombre = data.nombre;
+      this.apellido =data.apellido;
+      this.fechaNacimiento = data.fechaNacimiento;
+    },
+    async guardar(){
+      const bodyPersona = {
+        nombre:this.nombre,
+        apellido:this.apellido,
+        fechaNacimiento:this.fechaNacimiento
+      }
+      await insertarFachada(bodyPersona);
+    }
+  }
+};
 </script>
 
 <style>
@@ -59,7 +91,6 @@ input {
   border-radius: 30px;
   color: rgb(91, 169, 72);
   background: rgb(192, 229, 183);
-  
 }
 button {
   color: white;
