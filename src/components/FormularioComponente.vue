@@ -3,31 +3,36 @@
     <div class="formu">
       <h1>Formulario Persona</h1>
 
-        <p type="Id">
-          <input type="text" id="id" name="id" v-model="id" />
-        </p>
-        <p type="Nombre">
-          <input type="text" id="nombre" name="nombre" v-model="nombre" />
-        </p>
-        <p type="Apellido">
-          <input type="text" id="apellido" name="apellido" v-model="apellido" />
-        </p>
-        <p type="Fecha de Nacimiento ">
-          <input
-            type="text"
-            id="fechaNacimiento"  
-            name="fechaNacimiento"
-            v-model="fechaNacimiento"
-          />
-        </p>
+      <p type="Id">
+        <input type="text" id="id" name="id" v-model="id" />
+      </p>
+      <p type="Nombre">
+        <input type="text" id="nombre" name="nombre" v-model="nombre" />
+      </p>
+      <p type="Apellido">
+        <input type="text" id="apellido" name="apellido" v-model="apellido" />
+      </p>
+      <p type="Fecha de Nacimiento ">
+        <input
+          type="text"
+          id="fechaNacimiento"
+          name="fechaNacimiento"
+          v-model="fechaNacimiento"
+        />
+      </p>
+      <div class="botones">
       <button @click="buscar()">Consultar</button>
       <button @click="guardar()">Guardar</button>
+      <button @click="actualizar()">Actualizar</button>
+      <button @click="actualizarParcial()">Actualizar Parcial</button>
+      <button @click="eliminar()">Eliminar</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { insertarFachada, obtenerPorIdFachada } from "@/client/PersonaClient";
+import { obtenerPorIdFachada, insertarFachada, actualizarFachada, actualizarParcialFachada, eliminarFachada } from "@/client/PersonaClient";
 export default {
   data() {
     return {
@@ -40,22 +45,51 @@ export default {
   mounted() {
     obtenerPorIdFachada(6);
   },
-  methods:{
+    methods:{
     async buscar(){
-      const data = await obtenerPorIdFachada(this.id);
+      const data= await obtenerPorIdFachada(this.id);
       this.nombre = data.nombre;
-      this.apellido =data.apellido;
+      this.apellido = data.apellido;
       this.fechaNacimiento = data.fechaNacimiento;
+      alert("Persona encontrada exitosamente");
     },
     async guardar(){
       const bodyPersona = {
-        nombre:this.nombre,
-        apellido:this.apellido,
-        fechaNacimiento:this.fechaNacimiento
-      }
+        nombre: this.nombre,
+        apellido: this.apellido,
+      };  
       await insertarFachada(bodyPersona);
-    }
-  }
+      alert(`Persona insertada exitosamente:
+      - Nombre: ${this.nombre}
+      - Apellido ${this.apellido}
+      - Fecha de Nacimiento ${this.fechaNacimiento}`);
+    },
+    async actualizar() {
+      const bodyPersona = {
+        nombre: this.nombre,
+        apellido: this.apellido,
+        fechaNacimiento: this.fechaNacimiento,
+      };
+      await actualizarFachada(this.id, bodyPersona);
+      alert("Persona actualizada exitosamente");
+    },
+    async actualizarParcial() {
+      const bodyPersona = {};
+      if (this.nombre) bodyPersona.nombre = this.nombre;
+    
+
+      await actualizarParcialFachada(this.id, bodyPersona);
+      alert("Persona actualizada exitosamente");
+    },
+    async eliminar() {
+      await eliminarFachada(this.id);
+      alert("Persona eliminada exitosamente");
+      this.id = null;
+      this.nombre = "";
+      this.apellido = "";
+      this.fechaNacimiento = "";
+    },
+  },
 };
 </script>
 
@@ -85,8 +119,8 @@ input {
 .formu {
   justify-content: center;
   text-align: center;
-  height: 400px;
-  width: 300px;
+  height: 600px;
+  width: 400px;
   border: solid rgb(112, 207, 88);
   border-radius: 30px;
   color: rgb(91, 169, 72);
@@ -97,8 +131,15 @@ button {
   background: rgb(112, 207, 88);
   border: transparent;
   border-radius: 3px;
-  margin: 0 25px;
-  width: 80px;
-  height: 20px;
+
+  padding-top: 15px;
+  width: 150px;
+  height: 40px;
+}
+.botones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+  justify-items: center;
 }
 </style>

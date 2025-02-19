@@ -9,19 +9,15 @@ const obtenerPorId = async (id) => {
 
 const insertar = async (body) => {
     axios.post(`http://localhost:8081/matriculaApi/v1.1/personas`, body).then(r => r.data);
-    return data;
 }
-const actualizar = async (body) => {
+const actualizar = async (id,body) => {
     axios.put(`http://localhost:8081/matriculaApi/v1.1/personas/${id}`, body).then(r => r.data);
-    return data;
 }
-const actualizarParcial = async (body) => {
+const actualizarParcial = async (id,body) => {
     axios.patch(`http://localhost:8081/matriculaApi/v1.1/personas/${id}`, body).then(r => r.data);
-    return data;
 }
 const eliminar = async (id) => {
     axios.delete(`http://localhost:8081/matriculaApi/v1.1/personas/${id}`).then(r => r.data);
-    return data;
 }
 
 //FACHADA
@@ -33,12 +29,12 @@ export const insertarFachada = async (body) =>{
     return await insertar(body);
 }
 
-export const actualizarFachada = async (body) =>{
-    return await actualizar(body);
+export const actualizarFachada = async (id,body) =>{
+    return await actualizar(id,body);
 }
 
-export const actualizarParcialFachada = async (body) =>{
-    return await actualizarParcial(body);
+export const actualizarParcialFachada = async (id,body) =>{
+    return await actualizarParcial(id,body);
 }
 
 export const eliminarFachada = async (id) =>{
